@@ -1,0 +1,25 @@
+P3
+  Description
+    There are n passengers 1, 2, …, n. The passenger i want to travel from point i to point i + n (i = 1,2,…,n). 
+    There is a bus located at point 0 and has k places for transporting the passengers (it means at any time, there are at most k passengers on the bus). 
+    You are given the distance matrix c in which c(i,j) is the traveling distance from point i to point j (i, j = 0,1,…, 2n).
+    But the ith passenger cant stay on the bus for more than s[i] stops. (Ex: if s[i] = 2, then route "...-> i -> stop1 -> stop2 -> i+n ->..." is valid for i) 
+    Compute the shortest route for the bus, serving n passengers and coming back to point 0. 
+  Input
+    Line 1 contains n and k (1 ≤ n ≤ 11,1≤k≤10)
+    Line i+1 (i=1,2,…,2n+1) contains the (i−1)th line of the matrix c (rows and columns are indexed from 0,1,2,..,2n).
+    Line 2n+3 contains the array s[i]
+  Output
+    Unique line contains the length of the shortest route.
+
+
+P4
+  Description
+    You are given a maze[n][n] (max = 10000) contains of 0s and 1s, where 1s are obsticles.
+    Starting from (1,1), you can only go down or right at each steps.
+    Calculate the numbers of ways to get to point (a,b) (1 ≤ a, b ≤ n).
+  Input 
+    Line 1 contains n and (a,b)
+    Line 2 to n + 1 contains the maze (0s and 1s)
+  Output
+    Number of ways to get to point (a,b) from (1,1) 
