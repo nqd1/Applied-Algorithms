@@ -1,69 +1,58 @@
 #include <bits/stdc++.h>
-#define fast ios::sync_with_stdio(false); cin.tie(nullptr)
+
 using namespace std;
 
-const int MAX = 1000;
 int n;
-int dist[MAX][MAX];
-vector<int> route, temp_route;
-bool visited[MAX];
-int curr_cost, best_cost = INT_MAX;
+vector<vector<int>> c;
+vector<bool> visited;
+vector<int> tour;
 
-void input(){
+int findNearest(int k) {
+    int nearest = -1;
+    int minDist = INT_MAX;
+    for (int i = 0; i < n; i++) {
+        if (!visited[i] && c[k][i] < minDist) {
+            minDist = c[k][i];
+            nearest = i;
+        }
+    }
+    return nearest;
+}
+
+void TRY(int k) {
+    visited[k] = true;
+    tour.push_back(k + 1);
+    int nextCity = findNearest(k);
+
+    if (tour.size() == n) {
+        return;
+    }
+
+    TRY(nextCity);
+}
+
+void set_up() {
     cin >> n;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            cin >> dist[i][j];
+    c.resize(n, vector<int>(n));
+    visited.resize(n, false);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> c[i][j];
         }
     }
-}
-
-
-void updateBest(){
-    if (curr_cost + dist[temp_route.back()][temp_route[0]] < best_cost) {
-        best_cost = curr_cost + dist[temp_route.back()][temp_route[0]];
-        route = temp_route;
-    }
-}
-
-void TRY(int k){
-    for (int v = 0; v < n; ++v) {
-        if (!visited[v]) {
-            visited[v] = true;
-            temp_route.push_back(v);
-            curr_cost += dist[temp_route[k - 1]][v];
-
-            if (k == n) {
-                updateBest();
-            }
-            else if (curr_cost < best_cost) {
-                TRY(k + 1);
-            }
-
-            visited[v] = false;
-            temp_route.pop_back();
-            curr_cost -= dist[temp_route[k - 1]][v];
-        }
-    }
-}
-
-void set_up(){
-    fill(visited, visited + n, false);
-    visited[0] = true;
-    temp_route.push_back(0);
-    curr_cost = 0;
-    TRY(1);
 }
 
 int main() {
-    fast;
-    input();
     set_up();
 
-    cout << n << '\n';
-    for (int city : route) {
-        cout << city + 1 << ' ';
+    TRY(0);
+
+    cout << n << endl;
+    for (int i = 0; i < n; i++) {
+        cout << tour[i] << " ";
     }
+    cout << endl;
 
     return 0;
 }
